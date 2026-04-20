@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gigi Curates — Beauty Edit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f0eded;
+    --warm-white: #f8f8f8;
+    --nude: #e8e2e2;
+    --blush: #b89496;
+    --rosa-antigo: #b9616f;
+    --dourado: #b89496;
+    --dourado-light: #b89496;
+    --text-dark: #403a3a;
+    --text-medium: #403a3a;
+    --text-light: #a49c9c;
+    --border: #ddd5d5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-dark);
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .header {
+    position: relative; padding: 48px 24px 36px; text-align: center;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%); overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute; top: -60px; right: -40px; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(185,97,111,0.12) 0%, transparent 70%); border-radius: 50%;
+  }
+  .header::after {
+    content: ''; position: absolute; bottom: -30px; left: -20px; width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(184,148,150,0.1) 0%, transparent 70%); border-radius: 50%;
+  }
+  .brand-mark {
+    display: inline-block; font-family: 'Playfair Display', serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--dourado); margin-bottom: 16px; position: relative;
+  }
+  .brand-mark::before, .brand-mark::after {
+    content: ''; position: absolute; top: 50%; width: 20px; height: 0.5px; background: var(--dourado-light);
+  }
+  .brand-mark::before { left: -28px; } .brand-mark::after { right: -28px; }
+  .header h1 {
+    font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 400;
+    letter-spacing: -0.5px; line-height: 1.1; color: var(--text-dark); margin-bottom: 12px;
+  }
+  .header h1 em { font-style: italic; color: var(--rosa-antigo); }
+  .header-tagline {
+    font-size: 13px; font-weight: 300; color: var(--text-light);
+    letter-spacing: 0.5px; line-height: 1.6; max-width: 280px; margin: 0 auto;
+  }
+  .edition-strip {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 14px 24px; background: var(--cream);
+    border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border);
+  }
+  .edition-strip span { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-light); font-weight: 500; }
+  .edition-dot { width: 3px; height: 3px; background: var(--dourado-light); border-radius: 50%; }
+  .nav-section { padding: 20px 20px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .nav-section::-webkit-scrollbar { display: none; }
+  .nav-pills { display: flex; gap: 8px; width: max-content; }
+  .nav-pill {
+    padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.3px; white-space: nowrap; border: 1px solid var(--border);
+    color: var(--text-medium); background: transparent; cursor: pointer; transition: all 0.3s ease;
+  }
+  .nav-pill.active { background: var(--text-dark); color: var(--warm-white); border-color: var(--text-dark); }
+  .nav-pill:hover:not(.active) { border-color: var(--rosa-antigo); color: var(--rosa-antigo); }
+  .editorial-intro { padding: 28px 24px 20px; }
+  .editorial-intro p {
+    font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; font-weight: 400;
+    color: var(--text-medium); line-height: 1.65; text-align: center; position: relative;
+  }
+  .editorial-intro p::before {
+    content: '\201C'; font-family: 'Playfair Display', serif; font-size: 48px; color: var(--dourado-light);
+    position: absolute; top: -16px; left: 50%; transform: translateX(-50%); line-height: 1; opacity: 0.6;
+  }
+  .section-header { padding: 32px 24px 16px; display: flex; align-items: baseline; gap: 12px; }
+  .section-number { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400; color: var(--dourado-light); line-height: 1; }
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dark); }
+  .section-line { flex: 1; height: 0.5px; background: var(--border); margin-left: 8px; }
+  .products-grid { padding: 0 16px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .product-card {
+    display: flex; gap: 16px; padding: 16px; background: white; border-radius: 14px;
+    border: 0.5px solid var(--border); text-decoration: none; color: inherit;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
+  }
+  .product-card::after {
+    content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px;
+    background: radial-gradient(circle at top right, rgba(185,97,111,0.05) 0%, transparent 70%);
+  }
+  .product-card:active { transform: scale(0.98); border-color: var(--rosa-antigo); }
+  .product-image {
+    width: 90px; height: 90px; min-width: 90px; border-radius: 10px; background: var(--cream);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .product-image img { width: 100%; height: 100%; object-fit: cover; }
+  .img-fallback { font-size: 32px; opacity: 0.4; }
+  .product-info { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; }
+  .product-brand { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--dourado); }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; color: var(--text-dark); line-height: 1.3; }
+  .product-desc { font-size: 12px; font-weight: 300; color: var(--text-light); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .product-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+  .product-price { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+  .product-tag { font-size: 9px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 100px; background: var(--cream); color: var(--rosa-antigo); }
+  .product-arrow { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--border); font-size: 16px; transition: all 0.3s ease; }
+  .product-card:active .product-arrow { color: var(--rosa-antigo); transform: translateY(-50%) translateX(3px); }
+  .featured-card {
+    margin: 0 16px 20px; border-radius: 16px; overflow: hidden; background: white;
+    border: 0.5px solid var(--border); text-decoration: none; color: inherit; display: block; transition: all 0.3s ease;
+  }
+  .featured-card:active { transform: scale(0.98); }
+  .featured-image {
+    width: 100%; height: 200px;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--nude) 50%, var(--blush) 100%);
+    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+  }
+  .featured-image img { width: 100%; height: 100%; object-fit: cover; }
+  .featured-badge {
+    position: absolute; top: 14px; left: 14px; font-size: 9px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; padding: 5px 12px; background: rgba(64,58,58,0.85);
+    color: var(--warm-white); border-radius: 100px; backdrop-filter: blur(8px); z-index: 2;
+  }
+  .featured-body { padding: 20px; }
+  .featured-body .product-brand { margin-bottom: 4px; }
+  .featured-body .product-name { font-size: 18px; margin-bottom: 6px; }
+  .featured-body .product-desc { -webkit-line-clamp: 3; margin-bottom: 10px; }
+  .featured-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--rosa-antigo); letter-spacing: 0.3px; }
+  .featured-cta svg { width: 14px; height: 14px; }
+  .editorial-divider { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 8px 24px; margin: 8px 0; }
+  .editorial-divider .line { flex: 1; height: 0.5px; background: var(--border); }
+  .editorial-divider .ornament { font-size: 10px; color: var(--dourado-light); letter-spacing: 6px; }
+  .footer { text-align: center; padding: 32px 24px 48px; background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 400; color: var(--text-dark); margin-bottom: 8px; }
+  .footer-tagline { font-size: 11px; font-weight: 300; color: var(--text-light); letter-spacing: 0.5px; margin-bottom: 20px; }
+  .social-links { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
+  .social-link {
+    width: 40px; height: 40px; border-radius: 50%; border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; color: var(--text-medium); transition: all 0.3s ease;
+  }
+  .social-link:hover { border-color: var(--rosa-antigo); color: var(--rosa-antigo); }
+  .footer-note { font-size: 10px; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; }
+  .category-section { display: none; }
+  .category-section.active { display: block; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .product-card, .featured-card { animation: fadeInUp 0.5s ease both; }
+  .products-grid .product-card:nth-child(1) { animation-delay: 0.05s; }
+  .products-grid .product-card:nth-child(2) { animation-delay: 0.1s; }
+  .products-grid .product-card:nth-child(3) { animation-delay: 0.15s; }
+  .products-grid .product-card:nth-child(4) { animation-delay: 0.2s; }
+  body::after {
+    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 128px; z-index: 9999;
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="brand-mark">Gigi Curates</div>
+    <h1>Beleza com<br><em>intenção</em></h1>
+    <p class="header-tagline">O que vale. O que funciona.<br>O que é bonito de verdade.</p>
+  </header>
+
+  <div class="edition-strip">
+    <span>Edição Semanal</span><div class="edition-dot"></div><span>Abril 2026</span>
+  </div>
+
+  <nav class="nav-section">
+    <div class="nav-pills">
+      <button class="nav-pill active" data-category="todos">Todos</button>
+      <button class="nav-pill" data-category="skincare">Skincare</button>
+      <button class="nav-pill" data-category="maquiagem">Maquiagem</button>
+      <button class="nav-pill" data-category="cabelo">Cabelo</button>
+      <button class="nav-pill" data-category="tools">Tools</button>
+    </div>
+  </nav>
+
+  <div class="editorial-intro">
+    <p>Cada produto aqui passou pelo nosso filtro editorial. Não é catálogo — é curadoria.</p>
+  </div>
+
+  <div id="content-area">
+    <div class="category-section active" data-section="todos">
+
+      <!-- FEATURED -->
+      <a href="https://www.sallve.com.br/products/vitamina-c-antioxidante-hidratante" class="featured-card" target="_blank" rel="noopener" data-cat="skincare">
+        <div class="featured-image">
+          <span class="featured-badge">Pick da Semana</span>
+          <img src="https://www.sallve.com.br/cdn/shop/files/vitaminac_c10_novo_sallve_pele_radiante_hidratacao_antioxidante_protetor_solar_colágeno_rugas_antienvelhecimento_pele_jovem-PDP-pdp01.webp?v=1714137530&width=800" alt="Sallve Vitamina C" onerror="this.onerror=null;this.parentElement.style.background='linear-gradient(135deg,#f0eded,#e8e2e2,#b89496)';this.style.display='none';">
+        </div>
+        <div class="featured-body">
+          <div class="product-brand">Sallve</div>
+          <div class="product-name">Sérum Antioxidante Vitamina C 10%</div>
+          <div class="product-desc">Textura aquosa que absorve em segundos. Luminosidade real sem aquele aspecto oleoso. O melhor custo-benefício da categoria.</div>
+          <div class="product-meta"><span class="product-price">R$ 99</span><span class="product-tag">Skincare</span></div>
+          <div class="featured-cta" style="margin-top:12px;">Ver produto <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        </div>
+      </a>
+
+      <div class="section-header"><span class="section-number">01</span><span class="section-title">Skincare</span><div class="section-line"></div></div>
+      <div class="products-grid">
+        <a href="https://www.epocacosmeticos.com.br/protetor-solar-facial-la-roche-posay-anthelios-hydraox-fps-60/p" class="product-card" target="_blank" rel="noopener" data-cat="skincare">
+          <div class="product-image"><img src="https://epocacosmeticos.vteximg.com.br/arquivos/ids/538419-500-500/protetor-solar-facial-la-roche-posay-anthelios-hydraox-fps-60--6-.jpg?v=638249714506430000" alt="La Roche-Posay" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">La Roche-Posay</div>
+            <div class="product-name">Anthelios Hydraox FPS 60</div>
+            <div class="product-desc">Protetor com ação antioxidante. Textura gel-creme, zero esbranquiçado.</div>
+            <div class="product-meta"><span class="product-price">R$ 110</span><span class="product-tag">Proteção</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+
+        <a href="https://www.principiaskin.com/serum-anti-idade-nc-10-niacinamida-zinco-pca.html" class="product-card" target="_blank" rel="noopener" data-cat="skincare">
+          <div class="product-image"><img src="https://www.principiaskin.com/media/catalog/product/cache/a34a7233865f65bb2c8d02f7a9a77fa7/p/r/principia-nc-10-niacinamida-zinco-pca-30ml-1_1.webp" alt="Principia" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Principia</div>
+            <div class="product-name">Sérum Niacinamida 10% + Zinco</div>
+            <div class="product-desc">Poros, oleosidade e textura. Fórmula limpa, concentração eficaz. O favorito da curadoria.</div>
+            <div class="product-meta"><span class="product-price">R$ 76</span><span class="product-tag">Tratamento</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+
+        <a href="https://www.amazon.com.br/CeraVe-Hidratante-Hialur%C3%B4nico-Niacinamida-Textura/dp/B096XPFVLL" class="product-card" target="_blank" rel="noopener" data-cat="skincare">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/51hKhJ7xpuL._AC_SX522_.jpg" alt="CeraVe" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">CeraVe</div>
+            <div class="product-name">Loção Facial Hidratante PM</div>
+            <div class="product-desc">Ceramidas + ácido hialurônico. Hidratação inteligente para pele normal a seca.</div>
+            <div class="product-meta"><span class="product-price">R$ 85</span><span class="product-tag">Hidratação</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+      </div>
+
+      <div class="editorial-divider"><div class="line"></div><span class="ornament">◆ ◆ ◆</span><div class="line"></div></div>
+
+      <div class="section-header"><span class="section-number">02</span><span class="section-title">Maquiagem</span><div class="section-line"></div></div>
+      <div class="products-grid">
+        <a href="https://www.rubyrosemaquiagem.com.br/rosto/base" class="product-card" target="_blank" rel="noopener" data-cat="maquiagem">
+          <div class="product-image"><img src="https://acdn.mitiendanube.com/stores/003/578/825/products/hb8053-nude-1-0401-e023e28a2c02f40fcc17244770987432-1024-1024.webp" alt="Ruby Rose" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Ruby Rose</div>
+            <div class="product-name">Base Feels Matte</div>
+            <div class="product-desc">Cobertura média, textura mousse aveludada. A base viral que realmente entrega.</div>
+            <div class="product-meta"><span class="product-price">R$ 28</span><span class="product-tag">Base</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+
+        <a href="https://www.amazon.com.br/s?k=Boca+Rosa+batom+matte+HD" class="product-card" target="_blank" rel="noopener" data-cat="maquiagem">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/41bCZtpBxOL._AC_SX522_.jpg" alt="Boca Rosa" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Boca Rosa</div>
+            <div class="product-name">Batom Matte HD</div>
+            <div class="product-desc">Pigmentação intensa, textura aveludada. Não transfere, não resseca.</div>
+            <div class="product-meta"><span class="product-price">R$ 38</span><span class="product-tag">Lábios</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+
+        <a href="https://www.epocacosmeticos.com.br/fix-plus-setting-spray-mac/p" class="product-card" target="_blank" rel="noopener" data-cat="maquiagem">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/51oGJ2w9dNL._AC_SX522_.jpg" alt="MAC Fix+" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">MAC</div>
+            <div class="product-name">Fix+ Setting Spray</div>
+            <div class="product-desc">O finalizador que transforma make em pele. Fixação + luminosidade natural.</div>
+            <div class="product-meta"><span class="product-price">R$ 189</span><span class="product-tag">Premium</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+      </div>
+
+      <div class="editorial-divider"><div class="line"></div><span class="ornament">◆ ◆ ◆</span><div class="line"></div></div>
+
+      <div class="section-header"><span class="section-number">03</span><span class="section-title">Cabelo</span><div class="section-line"></div></div>
+      <div class="products-grid">
+        <a href="https://www.amazon.com.br/s?k=Wella+Oil+Reflections+Luminous+oleo" class="product-card" target="_blank" rel="noopener" data-cat="cabelo">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/41Tnt3I4CQL._AC_SX522_.jpg" alt="Wella Oil Reflections" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Wella</div>
+            <div class="product-name">Oil Reflections Luminous</div>
+            <div class="product-desc">Óleo capilar leve que sela cutículas sem pesar. Brilho de salão em casa.</div>
+            <div class="product-meta"><span class="product-price">R$ 89</span><span class="product-tag">Finalização</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+
+        <a href="https://www.amazon.com.br/s?k=Amend+Gold+Black+mascara+regenerativa" class="product-card" target="_blank" rel="noopener" data-cat="cabelo">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/61IfIYBXX8L._AC_SX522_.jpg" alt="Amend Gold Black" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Amend</div>
+            <div class="product-name">Máscara Regenerativa Gold Black</div>
+            <div class="product-desc">Reconstrução profunda com queratina. Resultado de salão, preço acessível.</div>
+            <div class="product-meta"><span class="product-price">R$ 32</span><span class="product-tag">Tratamento</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+      </div>
+
+      <div class="editorial-divider"><div class="line"></div><span class="ornament">◆ ◆ ◆</span><div class="line"></div></div>
+
+      <div class="section-header"><span class="section-number">04</span><span class="section-title">Tools & Acessórios</span><div class="section-line"></div></div>
+      <div class="products-grid">
+        <a href="https://www.amazon.com.br/s?k=gua+sha+quartzo+rosa+facial" class="product-card" target="_blank" rel="noopener" data-cat="tools">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/51MX0TH2d7L._AC_SX522_.jpg" alt="Gua Sha" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Gua Sha</div>
+            <div class="product-name">Pedra de Quartzo Rosa</div>
+            <div class="product-desc">Drenagem facial, redução de inchaço, ritual de autocuidado. O acessório que virou rotina.</div>
+            <div class="product-meta"><span class="product-price">R$ 49</span><span class="product-tag">Ritual</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+
+        <a href="https://www.amazon.com.br/s?k=Real+Techniques+esponja+miracle+complexion" class="product-card" target="_blank" rel="noopener" data-cat="tools">
+          <div class="product-image"><img src="https://m.media-amazon.com/images/I/51bQcFtJURL._AC_SX522_.jpg" alt="Real Techniques" onerror="this.onerror=null;this.outerHTML='<span class=img-fallback>○</span>'"></div>
+          <div class="product-info">
+            <div class="product-brand">Real Techniques</div>
+            <div class="product-name">Esponja Miracle Complexion</div>
+            <div class="product-desc">Aplicação impecável de base. A esponja que profissionais realmente usam.</div>
+            <div class="product-meta"><span class="product-price">R$ 59</span><span class="product-tag">Aplicação</span></div>
+          </div><span class="product-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="category-section" data-section="skincare"></div>
+    <div class="category-section" data-section="maquiagem"></div>
+    <div class="category-section" data-section="cabelo"></div>
+    <div class="category-section" data-section="tools"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-logo">Gigi Curates</div>
+    <p class="footer-tagline">Curadoria de beleza com intenção</p>
+    <div class="social-links">
+      <a href="#" class="social-link" aria-label="TikTok">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.88a8.27 8.27 0 003.76.92V6.35a4.97 4.97 0 01-.01.34z"/></svg>
+      </a>
+    </div>
+    <p class="footer-note">Seleção editorial independente</p>
+  </footer>
+
+  <script>
+    const pills = document.querySelectorAll('.nav-pill');
+    const allSection = document.querySelector('[data-section="todos"]');
+    const catMap = { skincare: '01', maquiagem: '02', cabelo: '03', tools: '04' };
+    const catNames = { skincare: 'Skincare', maquiagem: 'Maquiagem', cabelo: 'Cabelo', tools: 'Tools & Acessórios' };
+
+    Object.keys(catMap).forEach(cat => {
+      const section = document.querySelector(`[data-section="${cat}"]`);
+      const header = `<div class="section-header"><span class="section-number">${catMap[cat]}</span><span class="section-title">${catNames[cat]}</span><div class="section-line"></div></div>`;
+      let cards = '';
+      if (cat === 'skincare') {
+        const f = allSection.querySelector('.featured-card');
+        if (f) cards += f.outerHTML;
+      }
+      allSection.querySelectorAll(`.product-card[data-cat="${cat}"]`).forEach(c => cards += c.outerHTML);
+      section.innerHTML = header + `<div class="products-grid">${cards}</div>`;
+    });
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        document.querySelectorAll('.category-section').forEach(s => {
+          s.classList.toggle('active', s.dataset.section === pill.dataset.category);
+        });
+        const active = document.querySelector('.category-section.active');
+        active.querySelectorAll('.product-card, .featured-card').forEach((c, i) => {
+          c.style.animation = 'none'; c.offsetHeight;
+          c.style.animation = `fadeInUp 0.5s ease ${i * 0.05}s both`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
